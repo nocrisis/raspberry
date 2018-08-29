@@ -75,15 +75,17 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopList(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        PersonInfo user=(PersonInfo) request.getSession().getAttribute("user");
-        /*PersonInfo user = new PersonInfo();
+//        PersonInfo user=(PersonInfo) request.getSession().getAttribute("user");
+        //todo  session
+        PersonInfo user = new PersonInfo();
         user.setUserId(1L);
-        request.getSession().setAttribute("user", user);*/
-        long employeeId = user.getUserId();
+        request.getSession().setAttribute("user", user);
         try {
             Shop shopCondition = new Shop();
+            shopCondition.setUser(user);
             ShopExecution se = shopService.getShopList(shopCondition, 0, 15);
             modelMap.put("shopList", se.getShopList());
+            modelMap.put("success", true);
         } catch (Exception e) {
             modelMap.put("success", false);
             modelMap.put("errMsg", e.getMessage());
@@ -168,10 +170,10 @@ public class ShopManagementController {
         }
         // 2.注册店铺
         if (shop != null && shopImg != null) {
-//            PersonInfo owner = new PersonInfo();//假定前端不可靠对上一层越少依赖越好，后台得到，后面会将session添加进去
-//            owner.setUserId(1L);
-            PersonInfo owner = (PersonInfo) request.getSession().getAttribute("user");
-            shop.setOwner(owner);
+//            PersonInfo user = new PersonInfo();//假定前端不可靠对上一层越少依赖越好，后台得到，后面会将session添加进去
+//            user.setUserId(1L);
+            PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
+            shop.setUser(user);
 //			File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
 //			//file 直接通过读取路径产生文件流传入
 //			try {
@@ -247,11 +249,11 @@ public class ShopManagementController {
 
         // 2.修改店铺信息
         if (shop != null && shop.getShopId() != null) {
-//            PersonInfo owner = new PersonInfo();
+//            PersonInfo user = new PersonInfo();
             //假定前端不可靠对上一层越少依赖越好，后台得到，后面会将session添加进去
-//            owner.setUserId(1L);
-            PersonInfo owner = (PersonInfo) request.getSession().getAttribute("user");
-            shop.setOwner(owner);
+//            user.setUserId(1L);
+            PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
+            shop.setUser(user);
             ShopExecution se;
             try {
                 if (shopImg == null) {

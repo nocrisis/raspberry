@@ -17,7 +17,7 @@ public class Shop {
     //超级管理员给店家的提醒
     private String advice;
     private Area area;
-    private PersonInfo owner;
+    private PersonInfo user;
     private ShopCategory shopCategory;
 
     public Long getShopId() {
@@ -116,13 +116,9 @@ public class Shop {
         this.area = area;
     }
 
-    public PersonInfo getOwner() {
-        return owner;
-    }
+    public PersonInfo getUser() { return user; }
 
-    public void setOwner(PersonInfo owner) {
-        this.owner = owner;
-    }
+    public void setUser(PersonInfo user) { this.user = user; }
 
     public ShopCategory getShopCategory() {
         return shopCategory;

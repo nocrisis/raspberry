@@ -9,7 +9,7 @@ function changeVerifyCode() {
 * url的地址取出参数值
 * */
 function getQueryString(name) {
-    var r = window.location.search.substr(1).match(/\d+(\.\d+)?/g);
+    var r = window.location.search.match(/\d+(\.\d+)?/g)[0];
     if (r != null) {
         return r;
     }
