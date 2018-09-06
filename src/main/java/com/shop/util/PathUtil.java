@@ -10,7 +10,7 @@ public class PathUtil {/*系统的分隔符*/
         if (os.toLowerCase().startsWith("win")) {
             basePath = "Q:/A my pic/project/shop/";
         } else {
-            basePath = "/home/xiangze/image/";/*win \\, linux /*/
+            basePath = "/home/raspberry/Pictures/workImage/";/*win \\, linux /*/
         }
         basePath = basePath.replace("/", sperator);
         return basePath;
