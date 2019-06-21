@@ -1,8 +1,8 @@
-jQuery(function () {
+$(function () {
 
     function getlist(e) {
         console.log('getlist');
-        jQuery.ajax({
+        $.ajax({
             url: "/shop/getshoplist",
             type: "get",
             dataType: "json",
@@ -21,7 +21,7 @@ jQuery(function () {
 
     function handleUser(data) {
         console.log('handleUser');
-        jQuery('#user-name').text(data[0].user.name);
+        $('#user-name').text(data[0].user.name);
     }
 
     function handleList(data) {
@@ -32,7 +32,7 @@ jQuery(function () {
                 + shopStatus(item.enableStatus) + '</div><div class="col-20">' + goShop(item.enableStatus, item.shopId) + '</div></div>';
 
         });
-        jQuery('.shop-wrap').html(html);
+        $('.shop-wrap').html(html);
     }
 
     function goShop(status, id) {
@@ -58,8 +58,8 @@ jQuery(function () {
     }
 
 
-    /*jQuery('#log-out').click(function () {
-        jQuery.ajax({
+    /*$('#log-out').click(function () {
+        $.ajax({
             url: "/shop/logout",
             type: "post",
             contentType: false,

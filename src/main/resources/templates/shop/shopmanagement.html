@@ -1,21 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>商店管理</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-    <link rel="stylesheet" th:href="@{/css/shop/shopmanagement.css}">
+    <meta th:remove="tag" th:include="fragements/header::header(title='商店管理')">
+    <link rel="stylesheet" th:href="@{/css/shop/shopmanagement.css}"/>
 </head>
 <body>
-<header class="bar bar-nav">
-    <h1 class="title">商店管理</h1>
-</header>
 <div class="content">
     <div class="content-block">
         <div class="row">
@@ -36,12 +25,7 @@
 </div>
 
 
-<script type='text/javascript' th:src="@{/js/reference/jQuery/jquery-3.3.1.js}" charset='utf-8'></script>
-<script>jQuery.noConflict()</script>
-<script type='text/javascript' th:src="@{//g.alicdn.com/sj/lib/zepto/zepto.js}" charset='utf-8'></script>
-<script type='text/javascript' th:src="@{//g.alicdn.com/msui/sm/0.6.2/js/sm.js}" charset='utf-8'></script>
-<script type='text/javascript' th:src="@{//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.js}" charset='utf-8'></script>
-<script type='text/javascript' th:src="@{/js/common/common.js}" charset='utf-8'></script>
+<div  th:remove="tag" th:include="fragements/footer::footer"></div>
 <script type='text/javascript' th:src="@{/js/shop/shopmanagement.js}" charset='utf-8'></script>
 
 </body>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta  th:remove="tag" th:include="fragements/header::header(title='商店管理')">
+    <link rel="stylesheet" href="/css/shop/productmanage.css">
+</head>
+<body>
+<div class="content">
+    <div class="content-block">
+        <div class="row row-product">
+            <div class="col-30">商品名称</div>
+            <div class="col-20">优先级</div>
+            <div class="col-50">操作</div>
+        </div>
+        <div class="product-wrap">
+            <!-- <div class="row row-product">
+                <div class="col-40">商品名称</div>
+                <div class="col-60">
+                    <a href="#">编辑</a>
+                    <a href="#">删除</a>
+                    <a href="#">预览</a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="content-block">
+        <div class="row">
+            <div class="col-50">
+                <a href="/shop/shopmanagement"
+                   class="button button-big button-fill button-danger">返回</a>
+            </div>
+            <div class="col-50">
+                <a href="#" class="button button-big button-fill button-success" id="new">新增</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div  th:remove="tag" th:include="fragements/footer::footer"></div>
+<script type='text/javascript' th:src="@{/js/shop/productmanage.js}" charset='utf-8'></script>
+</body>
+</html>

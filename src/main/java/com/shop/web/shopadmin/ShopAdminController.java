@@ -20,5 +20,19 @@ public class ShopAdminController {
     public String shopList() {
         return "shop/shoplist";
     }
+    @RequestMapping(value = "/productmanage")
+    private String productManage() {
+        return "shop/productmanage";
+    }
+
+    @RequestMapping(value = "/productedit")
+    private String productEdit() {
+        return "shop/productedit";
+    }
+
+    @RequestMapping(value = "/productcategorymanage")
+    private String productCategoryManage() {
+        return "shop/productcategorymanage";
+    }
 
 }

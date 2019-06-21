@@ -8,10 +8,11 @@ import com.shop.exceptions.ShopOperationException;
 import com.shop.service.ShopService;
 import com.shop.util.ImageUtil;
 import com.shop.util.PageCalculator;
-import com.shop.util.PathUtil;
+import com.shop.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName)
+    public ShopExecution addShop(Shop shop, MultipartFile shopImg)
             throws ShopOperationException {
         if (shop == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP_INFO);
@@ -55,10 +56,10 @@ public class ShopServiceImpl implements ShopService {
             if (effectedNum <= 0) {
                 throw new ShopOperationException("店铺创建失败");
             } else {
-                if (shopImgInputStream != null) {
+                if (shopImg != null) {
                     try {
                         // 存储图片
-                        addShopImg(shop, shopImgInputStream, fileName);
+                        addShopImg(shop, shopImg);
                     } catch (Exception e) {
                         throw new ShopOperationException(" addShopImg error：" + e.getMessage());
                     }
@@ -75,10 +76,10 @@ public class ShopServiceImpl implements ShopService {
         return new ShopExecution(ShopStateEnum.CHECK, shop);// 待审核的
     }
 
-    private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
+    private void addShopImg(Shop shop, MultipartFile shopImg) {
         // 获取shop图片目录的相对值路径
-        String dest = PathUtil.getShopImagePath(shop.getShopId());// upload\item\shop\18\
-        String shopImgAddr = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
+        String dest = FileUtil.getShopImagePath(shop.getShopId());// upload\item\shop\18\
+        String shopImgAddr = ImageUtil.generateThumbnail(shopImg, dest);
         // /A mypic/prorject/brothers.jpg
         shop.setShopImg(shopImgAddr);// upload\item\shop\18\2018051512414137334.jpg
     }
@@ -89,19 +90,19 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName)
+    public ShopExecution modifyShop(Shop shop, MultipartFile shopImg)
             throws ShopOperationException {
         if (shop == null || shop.getShopId() == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOPID);
         } else {
             try {
                 // 1.判断是否需要处理图片
-                if (shopImgInputStream != null && fileName != null && !"".equals(fileName)) {
+                if (shopImg != null ) {
                     Shop tempShop = shopDao.queryByShopId(shop.getShopId());
                     if (tempShop.getShopImg() != null) {
-                        ImageUtil.deleteFileOrPath(tempShop.getShopImg());
+                        FileUtil.deleteFileOrPath(tempShop.getShopImg());
                     }
-                    addShopImg(shop, shopImgInputStream, fileName);
+                    addShopImg(shop, shopImg);
                 }
                 // 2.更新店铺信息
                 shop.setLastEditTime(new Date());

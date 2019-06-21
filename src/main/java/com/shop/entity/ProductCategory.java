@@ -6,6 +6,7 @@ public class ProductCategory {
     private Long productCategoryId;
     private Long shopId;
     private String productCategoryName;
+    private String productCategoryDesc;
     private Integer priority;//权重
     private Date createTime;
     private Date lastEditTime;
@@ -41,6 +42,10 @@ public class ProductCategory {
     public void setProductCategoryName(String productCategoryName) {
         this.productCategoryName = productCategoryName;
     }
+
+    public String getProductCategoryDesc() { return productCategoryDesc; }
+
+    public void setProductCategoryDesc(String productCategoryDesc) { this.productCategoryDesc = productCategoryDesc; }
 
     public Integer getPriority() {
         return priority;

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import com.shop.dto.ShopExecution;
 import com.shop.entity.Shop;
 import com.shop.exceptions.ShopOperationException;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -17,10 +18,10 @@ public interface ShopService {
 
     /**
      * @param shop
-     * @param shopImgInputStream
+     * @param shopImg
      * @return 创建店铺，注册店铺信息，包括图片处理
      */
-    ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+    ShopExecution addShop(Shop shop, MultipartFile shopImg) throws ShopOperationException;
 
     /**
      * @param shopId
@@ -32,10 +33,10 @@ public interface ShopService {
      * 更新店铺信息，包括图片处理
      *
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param shopImg
+
      * @return
      * @throws ShopOperationException
      */
-    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException;
+    ShopExecution modifyShop(Shop shop, MultipartFile shopImg) throws ShopOperationException;
 }

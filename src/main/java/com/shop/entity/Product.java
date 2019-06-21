@@ -17,6 +17,7 @@ public class Product {
     private Date lastEditTime;
     //-1不可显示 0下架 1在前端显示
     private Integer enableStatus;
+    private Integer point;
     private List<ProductImg> productImgList;
     private ProductCategory productCategory;
     private Shop shop;
@@ -100,6 +101,10 @@ public class Product {
     public void setEnableStatus(Integer enableStatus) {
         this.enableStatus = enableStatus;
     }
+
+    public Integer getPoint() { return point; }
+
+    public void setPoint(Integer point) { this.point = point; }
 
     public List<ProductImg> getProductImgList() {
         return productImgList;

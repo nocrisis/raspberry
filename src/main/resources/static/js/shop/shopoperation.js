@@ -15,10 +15,10 @@ $(function () {
         $.getJSON(shopInfoUrl, function (data) {
             if (data.success) {
                 var shop = data.shop;
-                jQuery('#shop-name').val(shop.shopName);
-                jQuery('#shop-addr').val(shop.shopAddr);
-                jQuery('#shop-phone').val(shop.phone);
-                jQuery('#shop-desc').val(shop.shopDesc);
+                $('#shop-name').val(shop.shopName);
+                $('#shop-addr').val(shop.shopAddr);
+                $('#shop-phone').val(shop.phone);
+                $('#shop-desc').val(shop.shopDesc);
                 var shopCategory = '<option data-id="'
                     + shop.shopCategory.shopCategoryId + '"selected>'
                     + shop.shopCategory.shopCategoryName + '</option>';
@@ -27,10 +27,10 @@ $(function () {
                     tempAreaHtml += '<option data-id="' + item.areaId + '">'
                         + item.areaName + '</option>';
                 });
-                jQuery('#shop-category').html(shopCategory);
-                jQuery('#shop-category').attr('disabled', 'disabled');
-                jQuery('#area').html(tempAreaHtml);
-                jQuery("#area option[data-id='" + shop.area.areaId + "']").attr("selected", "selected");
+                $('#shop-category').html(shopCategory);
+                $('#shop-category').attr('disabled', 'disabled');
+                $('#area').html(tempAreaHtml);
+                $("#area option[data-id='" + shop.area.areaId + "']").attr("selected", "selected");
             }
         });
 
@@ -49,8 +49,8 @@ $(function () {
                     tempAreaHtml += '<option data-id="' + item.areaId + '">'
                         + item.areaName + '</option>';
                 });
-                jQuery('#shop-category').html(tempHtml);
-                jQuery('#area').html(tempAreaHtml);
+                $('#shop-category').html(tempHtml);
+                $('#area').html(tempAreaHtml);
 
             }
             else console.log("area和shopcatogery接收失败");
@@ -58,30 +58,30 @@ $(function () {
 
     }
 
-    jQuery('#submit').click(function () {//获取表单内容
+    $('#submit').click(function () {//获取表单内容
         var shop = {};
         if (isEdit) {
             shop.shopId = shopId;
         }
-        shop.shopName = jQuery('#shop-name').val();
-        shop.shopAddr = jQuery('#shop-addr').val();
-        shop.phone = jQuery('#shop-phone').val();
-        shop.shopDesc = jQuery('#shop-desc').val();
+        shop.shopName = $('#shop-name').val();
+        shop.shopAddr = $('#shop-addr').val();
+        shop.phone = $('#shop-phone').val();
+        shop.shopDesc = $('#shop-desc').val();
         shop.shopCategory = {
-            shopCategoryId: jQuery('#shop-category').find('option').not(function () {
+            shopCategoryId: $('#shop-category').find('option').not(function () {
                 return !this.selected;
             }).data('id')
         };
         shop.area = {
-            areaId: jQuery('#area').find('option').not(function () {
+            areaId: $('#area').find('option').not(function () {
                 return !this.selected;
             }).data('id')
         };
-        var shopImg = jQuery('#shop-img')[0].files[0];
+        var shopImg = $('#shop-img')[0].files[0];
         var formData = new FormData();
         formData.append('shopImg', shopImg);
         formData.append('shopStr', JSON.stringify(shop));//将一个JavaScript值(对象或者数组)转换为一个 JSON字符串,JSON.parse()
-        var verifyCodeActual = jQuery('#j_kaptcha').val();
+        var verifyCodeActual = $('#j_kaptcha').val();
         if (!verifyCodeActual) {
             $.toast('请输入验证码！');
             return;
@@ -100,16 +100,16 @@ $(function () {
                 } else {
                     $.toast('店铺信息提交失败！' + data.errMsg);
                 }
-                jQuery("#kaptcha_img").click();
+                $("#kaptcha_img").click();
             }
         });
     })
 });
 /*var shop = data.shop;
-jQuery('#shop-name').val(shop.shopName);
-jQuery('#shop-addr').val(shop.shopAddr);
-jQuery('#shop-phone').val(shop.phone);
-jQuery('#shop-desc').val(shop.shopDesc);
+$('#shop-name').val(shop.shopName);
+$('#shop-addr').val(shop.shopAddr);
+$('#shop-phone').val(shop.phone);
+$('#shop-desc').val(shop.shopDesc);
 var shopCategory = '<option data-id="'
 		+ shop.shopCategory.shopCategoryId + '" selected>'
 		+ shop.shopCategory.shopCategoryName + '</option>';
@@ -118,7 +118,7 @@ data.areaList.map(function(item, index) {
 	tempAreaHtml += '<option data-id="' + item.areaId + '">'
 			+ item.areaName + '</option>';
 });
-jQuery('#shop-category').html(shopCategory);
-jQuery('#shop-category').attr('disabled','disabled');
-jQuery('#area').html(tempAreaHtml);
-jQuery('#area').attr('data-id',shop.areaId);*/
+$('#shop-category').html(shopCategory);
+$('#shop-category').attr('disabled','disabled');
+$('#area').html(tempAreaHtml);
+$('#area').attr('data-id',shop.areaId);*/

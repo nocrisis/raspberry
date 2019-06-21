@@ -10140,7 +10140,7 @@
 
                         if (isWindow(elem)) {
 
-                            // $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
+                            // jQuery( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
                             return funcName.indexOf("outer") === 0 ?
                                 elem["inner" + name] :
                                 elem.document.documentElement["client" + name];
@@ -10301,12 +10301,12 @@
         // Map over jQuery in case of overwrite
         _jQuery = window.jQuery,
 
-        // Map over the $ in case of overwrite
-        _$ = window.$;
+        // Map over the jQuery in case of overwrite
+        _jQuery = window.jQuery;
 
     jQuery.noConflict = function (deep) {
-        if (window.$ === jQuery) {
-            window.$ = _$;
+        if (window.jQuery === jQuery) {
+            window.jQuery = _jQuery;
         }
 
         if (deep && window.jQuery === jQuery) {
@@ -10316,11 +10316,11 @@
         return jQuery;
     };
 
-// Expose jQuery and $ identifiers, even in AMD
+// Expose jQuery and jQuery identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
     if (!noGlobal) {
-        window.jQuery = window.$ = jQuery;
+        window.jQuery = window.jQuery = jQuery;
     }
 
 

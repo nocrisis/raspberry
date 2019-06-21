@@ -61,14 +61,14 @@ public class ShopManagementController {
                 modelMap.put("redirect", false);
                 modelMap.put("shopId", currentShop.getShopId());
             }
-        }else {
-            Shop currentShop=new Shop();
+        } else {
+            Shop currentShop = new Shop();
             currentShop.setShopId(shopId);
-            request.getSession().setAttribute("currentShop",currentShop);
+            request.getSession().setAttribute("currentShop", currentShop);
             modelMap.put("shopId", currentShop.getShopId());
             modelMap.put("redirect", false);
         }
-        return  modelMap;
+        return modelMap;
     }
 
     @RequestMapping(value = "/getshoplist", method = RequestMethod.GET)
@@ -158,11 +158,11 @@ public class ShopManagementController {
         }
         MultipartFile shopImg = ((MultipartRequest) request).getFile("shopImg");
         // 接收图片
-//        CommonsMultipartFile shopImg = null;
-//        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-//        if (commonsMultipartResolver.isMultipart(request)) {
+//        MultipartFile shopImg = null;
+//        MultipartResolver MultipartResolver = new MultipartResolver(request.getSession().getServletContext());
+//        if (MultipartResolver.isMultipart(request)) {
 //            MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-//            shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");//前端传过来name=值
+//            shopImg = (MultipartFile) multipartHttpServletRequest.getFile("shopImg");//前端传过来name=值
         if (shopImg == null) {
             modelMap.put("success", false);
             modelMap.put("errMsg", "上传图片不能为空");
@@ -174,26 +174,14 @@ public class ShopManagementController {
 //            user.setUserId(1L);
             PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
             shop.setUser(user);
-//			File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+//			File shopImgFile = new File(FileUtil.getImgBasePath() + ImageUtil.getRandomFileName());
 //			//file 直接通过读取路径产生文件流传入
 //			try {
 //				shopImgFile.createNewFile();//每次生成新文件，产生垃圾文件，增加不稳定性
-//			} catch (IOException e) {
-//				modelMap.put("success", false);
-//				modelMap.put("errMsg", "上传图片不能为空");
-//				return modelMap;
-//			}
-//			try {
-//				inputStreamToFile(shopImg.getInputStream(), shopImgFile);
-//
-//			} catch (IOException e) {
-//				modelMap.put("success", false);
-//				modelMap.put("errMsg", e.getMessage());
-//				return modelMap;
-//			}
+
             ShopExecution se;
             try {
-                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                se = shopService.addShop(shop, shopImg);
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     List<Shop> shopList = (List<Shop>) request.getSession().getAttribute("shopList");
@@ -207,9 +195,6 @@ public class ShopManagementController {
                     modelMap.put("errMsg", se.getStateInfo());
                 }
             } catch (ShopOperationException e) {
-                modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
-            } catch (IOException e) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());
             }
@@ -257,9 +242,9 @@ public class ShopManagementController {
             ShopExecution se;
             try {
                 if (shopImg == null) {
-                    se = shopService.modifyShop(shop, null, null);
+                    se = shopService.modifyShop(shop, null);
                 } else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    se = shopService.modifyShop(shop, shopImg);
                 }
                 if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);
@@ -270,11 +255,8 @@ public class ShopManagementController {
             } catch (ShopOperationException e) {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", e.getMessage());
-            } catch (IOException e) {
-                modelMap.put("success", false);
-                modelMap.put("errMsg", e.getMessage());
+                return modelMap;
             }
-            return modelMap;
         } else {
             modelMap.put("success", false);
             modelMap.put("errMsg", "请输入店铺Id");
